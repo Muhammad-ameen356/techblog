@@ -10,25 +10,18 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { title, content, userId } = body;
 
-    const userData = await User.findById({ _id: userId });
+    const userData = await User.findById({ _id: userId }).select("-password");
 
     if (!userData)
       return NextResponse.json({ message: "User Not Found" }, { status: 400 });
 
     console.log(userData, "userData");
 
-    const { username, email, isVerified, isAdmin, isActive, _id } = userData;
-
     const newBlog = new Blog({
       title,
       content,
       user: {
-        id: _id,
-        username,
-        email,
-        isVerified,
-        isAdmin,
-        isActive,
+        ...userData,
       },
     });
 

@@ -35,18 +35,28 @@ const CreateBlogForm: React.FC = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const post = await axios.post("/api/admin/blog", {});
+    const { title, content } = formData;
 
-    // Add logic to save the blog post (e.g., send to backend or store in MongoDB)
+    const {
+      data: { data },
+    }: any = await axios.get("/api/admin/me");
+
+    const payload = {
+      title,
+      content: value,
+      userId: data._id,
+    };
+
+    const post = await axios.post("/api/admin/blog", payload);
 
     // Reset the form fields
-    // setFormData({
-    //   title: "",
-    //   content: "",
-    //   author: "",
-    //   category: "",
-    // });
-    // setValue("");
+    setFormData({
+      title: "",
+      content: "",
+      author: "",
+      category: "",
+    });
+    setValue("");
   };
 
   return (
