@@ -5,6 +5,19 @@ import { connect } from "@/dbConfig/dbConfig";
 
 connect();
 
+export async function GET(request: NextRequest) {
+  try {
+    const allBlogPosts = await Blog.find({ isActive: true });
+
+    return NextResponse.json(
+      { message: "success", data: allBlogPosts },
+      { status: 201 }
+    );
+  } catch (error) {
+    return NextResponse.json({ message: "error" }, { status: 404 });
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();

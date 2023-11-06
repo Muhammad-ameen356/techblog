@@ -15,7 +15,7 @@ export function middleware(request: NextRequest) {
   //   return NextResponse.redirect(new URL("/home", request.url));
 }
 
-// See "Matching Paths" below to learn more
+// Add here
 export const config = {
-  matcher: ["/admin", "/admin/dashboard"],
+  matcher: ["/admin", "/admin/dashboard", "/admin/dashboard/blog"],
 };
