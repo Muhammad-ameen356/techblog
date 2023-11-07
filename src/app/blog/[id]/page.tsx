@@ -1,5 +1,4 @@
 import { Navbar } from "@/components";
-import axios from "axios";
 import React from "react";
 import style from "../../styles/blog.module.css";
 
@@ -30,12 +29,15 @@ export async function generateStaticParams() {
     (res) => res.json()
   );
 
-  return allBlog.map((allBlog: any) => {
-    id: allBlog._id.toString();
-  });
+  console.log(allBlog, "allBlog");
+
+  return allBlog?.data.map((allBlog: any) => ({
+    id: allBlog._id.toString(),
+  }));
 }
 
 async function getBlogById(id: string) {
+  console.log("idid*****************************/n\n", id, "idid");
   const res = await fetch(`http://localhost:3000/api/admin/blog/${id}`);
   if (!res.ok) throw new Error("fail to fetch data");
   return res.json();
