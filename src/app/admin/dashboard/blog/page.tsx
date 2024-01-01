@@ -1,5 +1,6 @@
 "use client";
 
+import Heading from "@/app/components/heading";
 import axios from "axios";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import ReactQuill from "react-quill";
@@ -20,6 +21,14 @@ const CreateBlogForm: React.FC = () => {
     author: "",
     category: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const stopLoading = () => {
+    setIsLoading(false);
+  };
+  const startLoading = () => {
+    setIsLoading(true);
+  };
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -33,6 +42,7 @@ const CreateBlogForm: React.FC = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    startLoading();
 
     const { title, content } = formData;
 
@@ -56,11 +66,17 @@ const CreateBlogForm: React.FC = () => {
       category: "",
     });
     setValue("");
+    stopLoading();
   };
+  const buttonClasses = `col-span-2 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded mb-2${
+    isLoading
+      ? "bg-indigo-200 animate-pulse"
+      : "bg-indigo-800 hover:bg-indigo-500"
+  }`;
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Create Blog</h2>
+    <div className="container mx-auto">
+      <Heading text="Create Blog" />
       <form
         onSubmit={handleSubmit}
         className="grid grid-cols-1 md:grid-cols-2 gap-4"
@@ -145,11 +161,8 @@ const CreateBlogForm: React.FC = () => {
             />
           </div>
         </div>
-        <button
-          type="submit"
-          className="col-span-2 bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded mb-2"
-        >
-          Create Blog
+        <button type="submit" className={buttonClasses} disabled={isLoading}>
+          {isLoading ? "Loading..." : "Create Blog"}
         </button>
       </form>
     </div>

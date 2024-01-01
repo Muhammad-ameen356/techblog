@@ -23,41 +23,42 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
   return (
     <div className="flex h-screen bg-gray-100">
       {/* Sidebar */}
-      <nav className="bg-blue-500 w-64 p-4 overflow-y-auto fixed left-0 top-0 h-full">
-        {/* Logo */}
-        <div className="flex items-center mb-4">
-          <h1 className="text-white text-2xl font-bold">Dashboard</h1>
-        </div>
+      <nav className="bg-white-500 w-64 p-4 overflow-y-auto fixed left-0 top-0 h-full">
+        <div className="bg-white-500 w-64 p-4 overflow-y-auto fixed left-0 top-0 h-full shadow-md mr-4">
+          {/* Logo */}
+          <div className="flex items-center mb-4">
+            <h1 className="text-indigo-500 text-2xl font-bold">Dashboard</h1>
+          </div>
 
-        {/* Sidebar content */}
-        <ul>
-          <li className="mb-2">
-            <Link href="/admin/dashboard">
-              <span
-                className={
-                  pathName === "/admin/dashboard"
-                    ? "text-white font-bold"
-                    : "text-white"
-                }
-              >
-                Dashboard Home
-              </span>
-            </Link>
-          </li>
-          <li className="mb-2">
-            <Link href="/admin/dashboard/blog">
-              <span
-                className={
-                  pathName === "/admin/dashboard/blog"
-                    ? "text-white font-bold"
-                    : "text-white"
-                }
-              >
-                Add Blog
-              </span>
-            </Link>
-          </li>
-          <li className="mb-2">
+          {/* Sidebar content */}
+          <ul>
+            <li className="mb-2">
+              <Link href="/admin/dashboard">
+                <span
+                  className={
+                    pathName === "/admin/dashboard"
+                      ? "text-indigo-900 font-bold"
+                      : "text-indigo-500"
+                  }
+                >
+                  Home
+                </span>
+              </Link>
+            </li>
+            <li className="mb-2">
+              <Link href="/admin/dashboard/blog">
+                <span
+                  className={
+                    pathName === "/admin/dashboard/blog"
+                      ? "text-indigo-900 font-bold"
+                      : "text-indigo-500"
+                  }
+                >
+                  Add Blog
+                </span>
+              </Link>
+            </li>
+            {/* <li className="mb-2">
             <Link href="/dashboard/page2">
               <span
                 className={
@@ -69,8 +70,9 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
                 Page 2
               </span>
             </Link>
-          </li>
-        </ul>
+          </li> */}
+          </ul>
+        </div>
       </nav>
 
       {/* Main Content */}

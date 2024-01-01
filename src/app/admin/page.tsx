@@ -10,6 +10,7 @@ const LoginForm: React.FC = () => {
     email: "",
     password: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -19,17 +20,32 @@ const LoginForm: React.FC = () => {
     });
   };
 
+  const stopLoading = () => {
+    setIsLoading(false);
+  };
+  const startLoading = () => {
+    setIsLoading(true);
+  };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    startLoading();
     if (formData.email.trim() === "" || formData.password.trim() === "") {
       toast.error("Both email and password are required");
+      stopLoading();
       return;
     }
     const response = await axios.post("/api/admin/login", formData);
+    stopLoading();
     router.push("/admin/dashboard");
     console.log(response);
   };
+
+  const buttonClasses = `w-full py-2 px-4 rounded font-bold ${
+    isLoading
+      ? "bg-indigo-200 animate-pulse"
+      : "bg-indigo-800 hover:bg-indigo-500"
+  } text-white`;
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
@@ -71,11 +87,8 @@ const LoginForm: React.FC = () => {
               onChange={handleChange}
             />
           </div>
-          <button
-            type="submit"
-            className="w-full bg-indigo-600 hover:bg-indigo-800 text-white font-bold py-2 px-4 rounded"
-          >
-            Login
+          <button type="submit" className={buttonClasses} disabled={isLoading}>
+            {isLoading ? "Loading..." : "Login"}
           </button>
         </form>
       </div>
